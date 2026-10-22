@@ -55,6 +55,6 @@ jobs:
           echo "Check, in order:"
           echo "1. JDK is 17 (AGP 9.4 minimum)."
           echo "2. gradle/wrapper/gradle-wrapper.jar is committed and gradlew is executable."
-          echo "3. Android SDK licenses were accepted and platforms;android-37 installed."
+          echo "3. Android SDK licenses were accepted and platforms;android-37.0 installed."
           echo "4. compileSdk in gradle/libs.versions.toml matches an installed platform."
           echo "5. The compile error in the stacktrace, if the project sources do not compile."
