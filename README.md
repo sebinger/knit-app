@@ -6,6 +6,8 @@ This is an Android app for tracking knitting projects: progress, counters, worki
 
 The debug APK is built in GitHub Actions. Android Studio is not required to obtain the APK.
 
+Figma Design: https://www.figma.com/design/dcT8JwwSEsldijR97ZHJAC/StitchTrack-Design-System?node-id=14-431&p=f&t=qY41FCemm8HExskQ-0
+
 ## How to Get the APK
 
 1. Open the repository on GitHub.
