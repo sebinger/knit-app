@@ -1,84 +1,86 @@
 # StitchTrack
 
-Android-приложение для отслеживания вязальных проектов: прогресса, счётчиков, времени работы, заметок и PDF-схем.
+Hello teacher!
 
-Сборка debug-APK выполняется в GitHub Actions. Android Studio на компьютере преподавателя для получения APK не нужна.
+This is an Android app for tracking knitting projects: progress, counters, working time, notes, and PDF patterns.
 
-## Как получить APK
+The debug APK is built in GitHub Actions. Android Studio is not required to obtain the APK.
 
-1. Откройте репозиторий на GitHub.
-2. Перейдите во вкладку **Actions**.
-3. Выберите workflow **Android Debug APK**.
-4. Нажмите **Run workflow** и подтвердите запуск на ветке `main`.
-5. Дождитесь завершения сборки. Зелёная отметка означает, что `assembleDebug` прошёл.
-6. В завершённой сборке откройте **Artifacts**.
-7. Скачайте `stitchtrack-debug-apk`.
-8. Распакуйте архив и установите `app-debug.apk` на Android-устройство с API 26 или новее.
+## How to Get the APK
 
-Прямая ссылка на сборки:
+1. Open the repository on GitHub.
+2. Go to the **Actions** tab.
+3. Select the **Android Debug APK** workflow.
+4. Click **Run workflow** and confirm the run on the `main` branch.
+5. Wait for the build to finish. A green checkmark means that `assembleDebug` completed successfully.
+6. In the completed workflow run, open **Artifacts**.
+7. Download `stitchtrack-debug-apk`.
+8. Extract the archive and install `app-debug.apk` on an Android device running API 26 or later.
+
+Direct link to workflow runs:
 
 ```text
-https://github.com/sebinger/knit-app/actions/workflows/android-debug.yml
+[https://github.com/sebinger/knit-app/actions/workflows/android-debug.yml](https://github.com/sebinger/knit-app/actions/workflows/android-debug.yml)
 ```
 
-APK появляется в артефакте после успешного запуска workflow. GitHub хранит артефакты этой сборки ограниченное время, поэтому при необходимости запустите workflow ещё раз.
+The APK appears in the workflow artifacts after a successful run. GitHub stores artifacts from this build for a limited time, so run the workflow again if necessary.
 
-## Как открыть проект
+## How to Open the Project
 
-Проект можно открыть в Android Studio, но для сборки APK Android Studio не требуется: сборка выполняется автоматически в GitHub Actions.
+The project can be opened in Android Studio, but Android Studio is not required to build the APK: the build runs automatically in GitHub Actions.
 
-1. Клонируйте репозиторий:
+1. Clone the repository:
 
 ```bash
-git clone https://github.com/sebinger/knit-app.git
+git clone [https://github.com/sebinger/knit-app.git](https://github.com/sebinger/knit-app.git)
 cd knit-app
 ```
 
-2. Откройте папку в Android Studio.
-3. Дождитесь завершения Gradle Sync.
-4. Выберите эмулятор или подключённое Android-устройство.
-5. Нажмите Run.
+2. Open the folder in Android Studio.
+3. Wait for Gradle Sync to complete.
+4. Select an emulator or a connected Android device.
+5. Click **Run**.
 
-## Локальная сборка
+## Local Build
 
-Если установлены JDK 17 и Android SDK, `local.properties` не нужен в репозитории: путь к SDK задаётся переменной `ANDROID_HOME`.
+If JDK 17 and the Android SDK are installed, `local.properties` is not needed in the repository: the SDK path is provided through the `ANDROID_HOME` environment variable.
 
 ```bash
 ./gradlew assembleDebug
 ```
 
-На Windows:
+On Windows:
 
 ```bat
 gradlew.bat assembleDebug
 ```
 
-APK:
+APK location:
 
 ```text
 app/build/outputs/apk/debug/app-debug.apk
 ```
 
-## Тесты
+## Tests
 
 ```bash
 ./gradlew testDebugUnitTest
 ```
 
-## Возможности
+## Features
 
-- Создание и редактирование проектов
-- Цветные статусные теги: Not Started, In Progress, Completed, Paused
-- Счётчики rows, stitches и repeats
-- Основной счётчик и расчёт прогресса
-- Undo последнего изменения счётчика
-- Цели и прогресс до цели
-- Таймер вязания с паузой и общим временем
-- Заметки
-- Выбор и просмотр PDF-схемы
-- Работа полностью offline
+- Create and edit projects
+- Colored status tags: Not Started, In Progress, Completed, Paused
+- Counters for rows, stitches, and repeats
+- Main counter and progress calculation
+- Undo the last counter change
+- Targets and progress toward a target
+- Knitting timer with pause and total time
+- Notes
+- Select and view a PDF pattern
+- Fully offline operation
 
-## Технологии
+## Technologies
 
 - Kotlin
 - Jetpack Compose
@@ -86,21 +88,21 @@ app/build/outputs/apk/debug/app-debug.apk
 - Room
 - Hilt
 - Navigation Compose
-- Coroutines и Flow
+- Coroutines and Flow
 - JUnit
 
-## Требования
+## Requirements
 
-| Инструмент | Версия |
+| Tool | Version |
 |---|---|
-| Android Studio | Последняя стабильная версия (для открытия проекта; для APK не обязательна) |
-| JDK | 17. Эту версию использует GitHub Actions. Локально подходит JDK 17 или новее |
-| Android SDK | На CI ставится автоматически. Локально — через Android Studio. `compileSdk` 37 |
-| Устройство | Эмулятор или Android-устройство с API 26+ |
+| Android Studio | Latest stable version (for opening the project; not required to obtain the APK) |
+| JDK | 17. This version is used by GitHub Actions. JDK 17 or newer works locally |
+| Android SDK | Installed automatically on CI. Locally, install it through Android Studio. `compileSdk` 37 |
+| Device | Emulator or Android device with API 26+ |
 
-Версии SDK заданы в `gradle/libs.versions.toml`: `minSdk` 26, `compileSdk` 37. Android Gradle Plugin 9.4.1, Gradle Wrapper 9.6.0.
+SDK versions are defined in `gradle/libs.versions.toml`: `minSdk` 26 and `compileSdk` 37. Android Gradle Plugin 9.4.1 and Gradle Wrapper 9.6.0 are used.
 
-## Структура проекта
+## Project Structure
 
 ```text
 app/src/main/java/com/stitchtrack/app/
@@ -110,10 +112,10 @@ app/src/main/java/com/stitchtrack/app/
 └─ feature/
 ```
 
-## Известные ограничения
+## Known Limitations
 
-- Приложение работает offline.
-- Нет учётных записей и синхронизации.
-- Нет тёмной темы.
-- Поддерживается одна PDF-схема на проект.
-- Счётчики не группируются по секциям.
+- The app works offline.
+- There are no user accounts or synchronization.
+- There is no dark theme.
+- One PDF pattern is supported per project.
+- Counters are not grouped into sections.
