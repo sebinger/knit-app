@@ -1,0 +1,60 @@
+name: Android Debug APK
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      # ubuntu-latest has no Android SDK. This step installs command-line tools,
+      # accepts licenses, and exports ANDROID_HOME. AGP then downloads the
+      # compileSdk platform declared in gradle/libs.versions.toml.
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+
+      - name: Install Android SDK packages
+        run: sdkmanager "platforms;android-37.0" "build-tools;36.0.0"
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Grant execute permission to Gradle wrapper
+        run: chmod +x gradlew
+
+      - name: Build debug APK
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: stitchtrack-debug-apk
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+
+      - name: Explain build failure
+        if: failure()
+        run: |
+          echo "assembleDebug failed. The stacktrace is in the 'Build debug APK' step above."
+          echo "Check, in order:"
+          echo "1. JDK is 17 (AGP 9.4 minimum)."
+          echo "2. gradle/wrapper/gradle-wrapper.jar is committed and gradlew is executable."
+          echo "3. Android SDK licenses were accepted and platforms;android-37 installed."
+          echo "4. compileSdk in gradle/libs.versions.toml matches an installed platform."
+          echo "5. The compile error in the stacktrace, if the project sources do not compile."

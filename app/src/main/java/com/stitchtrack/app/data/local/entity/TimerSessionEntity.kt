@@ -1,0 +1,27 @@
+package com.stitchtrack.app.data.local.entity
+
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
+import androidx.room.PrimaryKey
+
+@Entity(
+    tableName = "timer_sessions",
+    foreignKeys = [
+        ForeignKey(
+            entity = ProjectEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["projectId"],
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
+    indices = [Index("projectId")],
+)
+data class TimerSessionEntity(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val projectId: Long,
+    val startedAt: Long,
+    val endedAt: Long?,
+    val pausedDuration: Long,
+    val pauseStartedAt: Long?,
+)
